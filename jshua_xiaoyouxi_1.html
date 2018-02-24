@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="processing-1.4.1.min.js">
+    </script>
+</head>
+<body>
+    <canvas id="canvas1" width="600" height="420">
+
+    </canvas>
+    <script id="script1" type="text/javascript">
+        function sketchProc(processing){
+                    var quanw=1,quanh=1,dj=0,q=0,jici=0,x_x,x_y,h_qw,h_qh,sleep=1,quanw_2=1,quanh_2=1,quanx,quany;
+            processing.setup = function(){
+                quan1 = new quan(this.random(35,565),this.random(35,385));
+                processing.size(600,420);
+                processing.frameRate(35);
+
+            }
+            processing.draw = function(){
+
+                processing.background(100);
+                quan1.quan_hua();
+
+            }
+
+            function quan(quanx,quany){
+                    this.quan_hua = function(){
+                        if(quanw==0){
+                          sleep=0;
+                        }
+                        if(quanw==70){
+                          sleep=-1;
+                        }
+                        if(dj==0&&quanw==0){
+                          jici++;
+                          x_x=quanx;
+                          x_y=quany;
+                          q=1;
+                          // player=minim.loadFile("sheng_3.mp2");
+                          // player.play();
+                        }
+                        processing.strokeWeight(1);
+                        processing.stroke(255,96,0);
+                        processing.fill(255,149,78);
+                        // this.ellipseMode('CENTER');
+                        processing.ellipse(quanx,quany,quanw+=sleep,quanh+=sleep);
+                        // alert(sleep);
+                        processing.fill(255,179,129);
+                        // processing.ellipseMode(CENTER);
+                        processing.ellipse(quanx,quany,quanw_2=(quanw/100)*65,quanh_2=(quanw/100)*65);
+                        processing.fill(255,219,195);
+                        // processing.ellipseMode(CENTER);
+                        processing.ellipse(quanx,quany,quanw_2=(quanw/100)*30,quanh_2=(quanw/100)*30);
+                    };
+                }
+        }
+
+
+
+
+
+        var canvas = document.getElementById("canvas1");
+        var p = new Processing(canvas,sketchProc);
+    </script>
+</body>
+</html>
