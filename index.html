@@ -6,7 +6,7 @@
     <link rel="prefetch" href="sheng_2_1.mp3" />
     <link rel="prefetch" href="sheng_3.mp3" />
     <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
-    <!-- <meta name="viewport" content="width=600, initial-scale=1.0, user-scalable=0" /> -->
+    <meta name="viewport" content="width=600, initial-scale=1.0, user-scalable=0" />
     <title>Document</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -85,11 +85,40 @@
             float: left;
             list-style-type:none;
         }
+        #jieshu{
+            position: absolute;
+            width:600px;
+            height:420px;
+            text-align:center;
+            display: none;
+        }
+        #jieguo{
+            font-size:32px;
+            font-weight:900;
+            margin-top:100px;
+        }
+        #jigeshu{
+            font-size:32px;
+            font-weight:900;
+            margin-top:25px;
+        }
+        #jishijian{
+            font-size:32px;
+            font-weight:900;
+            margin-top:15px;
+        }
     </style>
 </head>
 <body>
     <div id="content">
         <div class="juzhong">
+            <div id="jieshu">
+                <div id="jieguo"></div>
+                <br />
+                <div id="jigeshu"></div>
+                <br />
+                <div id="jishijian"></div>
+            </div>
                 <canvas id="canvas1" width="600" height="420"></canvas>
 
     </div>
@@ -115,7 +144,7 @@
 
 
         function sketchProc(processing){
-                    var jici=0,geshu=0,zhenshu_1=0,zhenshu_2=0,nei=0,zhen,nandu=0;
+                    var jici=0,geshu=0,zhenshu_1=0,zhenshu_2=0,nei=0,zhen,nandu=1;
                     var miaog=0,miaos=0,feng=0,fens=0;
 
             processing.setup = function(){
@@ -162,7 +191,7 @@
                     jici=0;
                     processing.loop();
                 })
-                if(nandu>0){
+                if(nandu>1){
                     processing.loop();
                 }
                 else{
@@ -173,7 +202,43 @@
                      // print(geshu);
                      //print(frameCount/30);
                      processing.noLoop();
+                     $("#jieguo").empty();
+                     $("#jigeshu").empty();
+                     $("#jishijian").empty();
+                    $("#jieguo").append("Game Over");
+                    $("#jieshu").css({"display":"inline","background-color":"#eee",
+                                       "opacity":"0.5"});
+                    $("#jigeshu").append(geshu);
+                    // $("#jishijian").append(fens+feng+":"+miaos+miaog);
+
                    }
+                   if(nandu-geshu==0){
+                        processing.noLoop();
+                     $("#jieguo").empty();
+                     $("#jigeshu").empty();
+                     $("#jishijian").empty();
+                    $("#jieguo").append("Game Win");
+                    $("#jieshu").css({"display":"inline","background-color":"#eee",
+                                       "opacity":"0.5"});
+                    $("#jigeshu").append(geshu);
+                    $("#jishijian").append(fens+feng+":"+miaos+miaog);
+                   }
+                   if(jici==3&&nandu==60){
+                     // print(geshu);
+                     //print(frameCount/30);
+                     processing.noLoop();
+                     $("#jieguo").empty();
+                     $("#jigeshu").empty();
+                     $("#jishijian").empty();
+                    $("#jieguo").append("Game Over");
+                    $("#jieshu").css({"display":"inline","background-color":"#eee",
+                                       "opacity":"0.5"});
+                    $("#jigeshu").append(geshu);
+                    $("#jishijian").append(fens+feng+":"+miaos+miaog);
+
+                   }
+
+
                 processing.background(100);
                 for(i=0;i<=20;i++){
                     processing.stroke(160,30);
@@ -249,7 +314,7 @@
                 if(this.frameCount>=110)
                 quan11.quan_hua();
                 if(this.frameCount>=120)
-                quan12.quan_hua();
+                // quan12.quan_hua();
 
                 if(this.frameCount%140==0){
                   quan1.quanx=this.random(35,565);
@@ -339,14 +404,14 @@
                   quan11.sleep=1;
                   quan11.dj=0;
                 }
-                if(this.frameCount%140==120){
-                  quan12.quanx=this.random(35,565);
-                  quan12.quany=this.random(35,385);
-                  quan12.quanw=1;
-                  quan12.quanh=1;
-                  quan12.sleep=1;
-                  quan12.dj=0;
-                }
+                // if(this.frameCount%140==120){
+                //   quan12.quanx=this.random(35,565);
+                //   quan12.quany=this.random(35,385);
+                //   quan12.quanw=1;
+                //   quan12.quanh=1;
+                //   quan12.sleep=1;
+                //   quan12.dj=0;
+                // }
 
 
                 if(quan1.q==1){
@@ -436,14 +501,14 @@
                       quan11.h_qh=0;
                     }
                   }
-                  if(quan12.q==1){
-                    quan12.hongquan();
-                    if(quan12.h_qw==350){
-                      quan12.q=0;
-                      quan12.h_qw=0;
-                      quan12.h_qh=0;
-                    }
-                  }
+                  // if(quan12.q==1){
+                  //   quan12.hongquan();
+                  //   if(quan12.h_qw==350){
+                  //     quan12.q=0;
+                  //     quan12.h_qw=0;
+                  //     quan12.h_qh=0;
+                  //   }
+                  // }
 
                  if(zhenshu_1<=25&&zhenshu_1>=1&&zhen==1){
                     dian_bai(mou_x,mou_y);
@@ -548,8 +613,9 @@
                         this.h_qw = 0;
                         this.q=0;
                         this.dj = 1;
-                        jici=0,geshu=0,zhenshu_1=0,zhenshu_2=0,nei=0,zhen,nandu=0;
+                        jici=0,geshu=0,zhenshu_1=0,zhenshu_2=0,nei=0,zhen,nandu=1;
                         miaog=0,miaos=0,feng=0,fens=0;
+                        $("#jieshu").css("display","none");
                         // alert();
                         // this.quan_hua();
                     }
@@ -592,7 +658,7 @@
                     quan9.chongzhi();
                     quan10.chongzhi();
                     quan11.chongzhi();
-                    quan12.chongzhi();
+                    // quan12.chongzhi();
                 }
                 function aixin(pianyi1,pianyi2,pianyi3){
                     processing.ellipse(processing.width/2+pianyi1,250,20,20);
@@ -617,7 +683,7 @@
                     quan9.beidianji();
                     quan10.beidianji();
                     quan11.beidianji();
-                    quan12.beidianji();
+                    // quan12.beidianji();
 
                     if(nei==0){
                         //player=minim.loadFile("sheng_2.mp2");
@@ -648,46 +714,51 @@
         var canvas = document.getElementById("canvas1");
         var p = new Processing(canvas,sketchProc);
     </script>
-    <<!-- script type="text/javascript">
+    <script type="text/javascript">
             //设备检测
-            function detectmob() {
-                if( navigator.userAgent.match(/Android/i)
-                || navigator.userAgent.match(/webOS/i)
-                || navigator.userAgent.match(/iPhone/i)
-                || navigator.userAgent.match(/iPad/i)
-                || navigator.userAgent.match(/iPod/i)
-                || navigator.userAgent.match(/BlackBerry/i)
-                || navigator.userAgent.match(/Windows Phone/i)
-                ){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            alert(detectmob());
-            if(detectmob()){
-        const width = document.documentElement.clientWidth;
-        const height = document.documentElement.clientHeight;
-        const contentDOM = document.getElementById('content');
-        alert('width: ' + width + ' height: ' + height)
-        if (width > height) { // 横屏
-          contentDOM.style.width = width + 'px';
-          contentDOM.style.height = height + 'px';
-          contentDOM.style.top = '0px';
-          contentDOM.style.left = '0px';
-          contentDOM.style.transform = 'none';
-        }
-        else { // 竖屏，这里微信应该由bug，我切换为竖屏的时候，width:375, height: 323, 导致不能旋转角度。 在safari、chrome上是正确的。
-          alert('change to portrait')
-          contentDOM.style.width = height + 'px';
-          contentDOM.style.height = width + 'px';
-          contentDOM.style.top = (height - width) / 2 + 'px';
-          contentDOM.style.left = 0 - (height - width) / 2 + 'px';
-          contentDOM.style.transform = 'rotate(90deg)';
-        }
-    }
+            // function detectmob() {
+            //     if( navigator.userAgent.match(/Android/i)
+            //     || navigator.userAgent.match(/webOS/i)
+            //     || navigator.userAgent.match(/iPhone/i)
+            //     || navigator.userAgent.match(/iPad/i)
+            //     || navigator.userAgent.match(/iPod/i)
+            //     || navigator.userAgent.match(/BlackBerry/i)
+            //     || navigator.userAgent.match(/Windows Phone/i)
+            //     ){
+            //         return true;
+            //     }
+            //     else {
+            //         return false;
+            //     }
+            // }
+            // if(detectmob()){
+            //     $(document).ready(function({
+            //         $("body").css("width","600");
+            //     }))
+            // }
+    //         alert(detectmob());
+    //         if(detectmob()){
+    //     const width = document.documentElement.clientWidth;
+    //     const height = document.documentElement.clientHeight;
+    //     const contentDOM = document.getElementById('content');
+    //     alert('width: ' + width + ' height: ' + height)
+    //     if (width > height) { // 横屏
+    //       contentDOM.style.width = width + 'px';
+    //       contentDOM.style.height = height + 'px';
+    //       contentDOM.style.top = '0px';
+    //       contentDOM.style.left = '0px';
+    //       contentDOM.style.transform = 'none';
+    //     }
+    //     else { // 竖屏，这里微信应该由bug，我切换为竖屏的时候，width:375, height: 323, 导致不能旋转角度。 在safari、chrome上是正确的。
+    //       alert('change to portrait')
+    //       contentDOM.style.width = height + 'px';
+    //       contentDOM.style.height = width + 'px';
+    //       contentDOM.style.top = (height - width) / 2 + 'px';
+    //       contentDOM.style.left = 0 - (height - width) / 2 + 'px';
+    //       contentDOM.style.transform = 'rotate(90deg)';
+    //     }
+    // }
 
-    </script> -->
+    </script>
 </body>
 </html>
